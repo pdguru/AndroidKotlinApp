@@ -3,24 +3,25 @@ package com.pdg.gesundheitscloudtest
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ListView
+import android.widget.ExpandableListAdapter
+import android.widget.ExpandableListView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.pdg.gesundheitscloudtest.model.SearchResultItem
-import com.pdg.gesundheitscloudtest.viewcontroller.ListAdapter
+import com.pdg.gesundheitscloudtest.viewcontroller.CustomExpandableListAdapter
 import org.json.JSONException
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    internal lateinit var requestQueue: RequestQueue
-    internal lateinit var resultArray: ArrayList<SearchResultItem>
-    internal lateinit var mainListView: ListView
+    private lateinit var requestQueue: RequestQueue
+    private lateinit var resultArray: ArrayList<SearchResultItem>
+    private lateinit var mainListView: ExpandableListView
 
-    internal var TAG = "GHC"
+    var TAG = "GHC"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,10 @@ class MainActivity : AppCompatActivity() {
         fetchItemsFromURL("adele")
 
         mainListView = findViewById(R.id.main_listview)
-        mainListView.adapter = ListAdapter(this, resultArray)
+        mainListView.expandableListAdapter = CustomExpandableListAdapter(this, resultArray)
+
+        mainListView.adapter = CustomExpandableListAdapter(this, resultArray)
+
     }
 
     private fun fetchItemsFromURL(searchString: String) {
@@ -94,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     Log.d(TAG, "onResponse: array size:" + resultArray.size)
-                    (mainListView.adapter as ListAdapter).notifyDataSetChanged()
+                    (mainListView.adapter as CustomExpandableListAdapter).notifyDataSetChanged()
                 }, Response.ErrorListener { error ->
                     Log.e("TAG", "Error retrieving JSON from URL: " + error.message)
                     error.printStackTrace()
