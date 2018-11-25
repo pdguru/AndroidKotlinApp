@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+android:padding="8dp">
+
+    <ImageView android:layout_width="60dp" android:layout_height="60dp"
+               android:id="@+id/row_imageView"
+               android:padding="4dp"
+               android:src="@mipmap/ic_launcher" app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="5dp"
+               app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="5dp"
+               android:layout_marginTop="5dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/row_songName"
+              android:padding="4dp"
+              android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Title"
+              android:text="Song name"
+              app:layout_constraintStart_toEndOf="@+id/row_imageView"
+              android:layout_marginStart="5dp" android:layout_marginTop="10dp"
+              app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="1dp"
+              app:layout_constraintBottom_toTopOf="@+id/row_artistName"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/row_artistName"
+              android:padding="4dp"
+              android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle"
+              android:text="Artist name"
+              app:layout_constraintStart_toEndOf="@+id/row_imageView"
+              android:layout_marginStart="5dp" android:layout_marginTop="5dp"
+              app:layout_constraintTop_toBottomOf="@+id/row_songName" android:layout_marginBottom="10dp"
+              app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
