@@ -1,11 +1,13 @@
 package com.pdg.gesundheitscloudtest.viewcontroller
 
 import android.content.Context
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.pdg.gesundheitscloudtest.R
 import com.pdg.gesundheitscloudtest.model.SearchResultItem
@@ -36,6 +38,10 @@ class ListAdapter(private val context: Context, private val arrayValues: ArrayLi
         subtitleTV.text = arrayValues[position].artistName
 
         val imageView = rowView.findViewById<ImageView>(R.id.row_imageView)
+        imageView.visibility = View.GONE
+
+        val progressBar = rowView.findViewById<ProgressBar>(R.id.row_progressBar)
+        progressBar.visibility = View.VISIBLE
 
 
         return rowView
