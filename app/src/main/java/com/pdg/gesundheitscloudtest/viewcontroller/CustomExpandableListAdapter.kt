@@ -84,7 +84,7 @@ class CustomExpandableListAdapter(private val context: Context, private val arra
         var date =
             SimpleDateFormat("yyyy-MM-dd").format(
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parseObject(arrayValues[groupPosition].releaseDate)).toString()
-        releaseTV.text = "Released on: "+date
+        releaseTV.text = "Released: "+date
         releaseTV.isSelected = true
 
         val genreTV = childRowView.findViewById<TextView>(R.id.childrow_genre)
@@ -93,11 +93,11 @@ class CustomExpandableListAdapter(private val context: Context, private val arra
 
         val lengthTV = childRowView.findViewById<TextView>(R.id.childrow_songLength)
         var len = SimpleDateFormat("mm:ss").format(arrayValues[groupPosition].trackTimeMillis).toString()
-        lengthTV.text = "Length: "+len+"m"
+        lengthTV.text = "Plays: "+len+"m"
         lengthTV.isSelected = true
 
         val priceTV = childRowView.findViewById<TextView>(R.id.childrow_price)
-        priceTV.text = "Price: "+arrayValues[groupPosition].currency+" "+arrayValues[groupPosition].trackPrice
+        priceTV.text = arrayValues[groupPosition].currency+" "+arrayValues[groupPosition].trackPrice
         priceTV.isSelected = true
 
         return childRowView

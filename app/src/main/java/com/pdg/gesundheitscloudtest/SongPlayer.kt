@@ -186,7 +186,7 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener, MediaPlayer.OnComp
         if (mediaPlayer != null && mediaPlayer!!.isPlaying) Toast.makeText(
             this,
             "Preview song will stop shortly.",
-            Toast.LENGTH_LONG
+            Toast.LENGTH_SHORT
         ).show()
         super.onBackPressed()
     }
