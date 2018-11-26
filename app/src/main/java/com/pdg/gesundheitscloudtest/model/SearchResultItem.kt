@@ -1,6 +1,10 @@
 package com.pdg.gesundheitscloudtest.model
 
-class SearchResultItem(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class SearchResultItem(
     var wrapperType: String?,
     var kind: String?,
     var artistId: Int?,
@@ -32,5 +36,5 @@ class SearchResultItem(
     var currency: String?,
     var primaryGenreName: String?,
     var streamable: Boolean?
-)
+): Parcelable
 

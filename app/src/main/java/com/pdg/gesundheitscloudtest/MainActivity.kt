@@ -1,11 +1,11 @@
 package com.pdg.gesundheitscloudtest
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.EditText
 import android.widget.ExpandableListView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -59,6 +59,16 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+        
+        mainListView.setOnGroupClickListener { expandableListView, view, groupPosition, id ->
+            if(expandableListView.isGroupExpanded(groupPosition)){
+                val songIntent = Intent(this, SongPlayer::class.java)
+                songIntent.putExtra("array", resultArray)
+                songIntent.putExtra("selectedSong", groupPosition)
+                startActivity(songIntent)
+            }
+            return@setOnGroupClickListener false
+        }
     }
 
     private fun fetchItemsFromURL(searchString: String) {
@@ -109,11 +119,6 @@ class MainActivity : AppCompatActivity() {
                             )
 
                             resultArray.add(searchResultItem)
-//                            Log.i(
-//                                TAG,
-//                                "$i: "+ responseResults.getJSONObject(i).getString("trackName") + " " +
-//                                        responseResults.getJSONObject(i).getString("artistName"                             )
-//                            );
                         }
                     } catch (jsonError: JSONException) {
                         Log.e(TAG, "Error parsing JSON: " + jsonError.message)
