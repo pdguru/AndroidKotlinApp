@@ -79,10 +79,9 @@ class MainActivity : AppCompatActivity() {
         val jsonObjectRequest =
             JsonObjectRequest(Request.Method.GET, "https://itunes.apple.com/search?term=$searchString",
                 null, Response.Listener { response ->
-                    Log.i(TAG, "onResponse: Response received: " + response.length())
-                    //                    Log.i(TAG, "Response received: " + response.toString(4));
                     try {
                         val responseResults = response.getJSONArray("results")
+                        Log.i(TAG, "onResponse: Response received: " + responseResults.length())
                         for (i in 0 until responseResults.length()) {
                             val searchResultItem = SearchResultItem(
                                 responseResults.getJSONObject(i).getString("wrapperType"),
