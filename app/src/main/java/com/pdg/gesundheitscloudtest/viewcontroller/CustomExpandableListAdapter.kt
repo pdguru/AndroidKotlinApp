@@ -1,6 +1,7 @@
 package com.pdg.gesundheitscloudtest.viewcontroller
 
 import android.content.Context
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,6 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.pdg.gesundheitscloudtest.R
 import com.pdg.gesundheitscloudtest.model.SearchResultItem
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 class CustomExpandableListAdapter(private val context: Context, private val arrayValues: ArrayList<SearchResultItem>):
@@ -59,7 +57,7 @@ class CustomExpandableListAdapter(private val context: Context, private val arra
     }
 
     override fun getGroupId(groupPosition: Int): Long {
-        return groupPosition as Long
+        return groupPosition.toLong()
     }
 
     override fun getChildView(
@@ -79,25 +77,29 @@ class CustomExpandableListAdapter(private val context: Context, private val arra
         }
 
         val albumTV = childRowView.findViewById<TextView>(R.id.childrow_album)
-        albumTV.text = arrayValues[groupPosition].collectionName
+        albumTV.text = "Album: "+arrayValues[groupPosition].collectionName
 
         val releaseTV = childRowView.findViewById<TextView>(R.id.childrow_releaseDate)
-        releaseTV.text = SimpleDateFormat("YYYY/MM/dd").format(arrayValues[groupPosition].releaseDate)
+        var date =
+            SimpleDateFormat("yyyy-MM-dd").format(
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parseObject(arrayValues[groupPosition].releaseDate)).toString()
+        releaseTV.text = "Released on: "+date
 
         val genreTV = childRowView.findViewById<TextView>(R.id.childrow_genre)
-        genreTV.text = arrayValues[groupPosition].primaryGenreName
+        genreTV.text = "Genre: "+arrayValues[groupPosition].primaryGenreName
 
         val lengthTV = childRowView.findViewById<TextView>(R.id.childrow_songLength)
-        lengthTV.text = SimpleDateFormat("YYYY/MM/dd").format(arrayValues[groupPosition].trackTimeMillis)
+        var len = SimpleDateFormat("mm:ss").format(arrayValues[groupPosition].trackTimeMillis).toString()
+        lengthTV.text = "Length: "+len+"m"
 
         val priceTV = childRowView.findViewById<TextView>(R.id.childrow_price)
-        priceTV.text = arrayValues[groupPosition].currency+" "+arrayValues[groupPosition].trackPrice
+        priceTV.text = "Price: "+arrayValues[groupPosition].currency+" "+arrayValues[groupPosition].trackPrice
 
         return childRowView
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
-        return childPosition as Long
+        return childPosition.toLong()
     }
 
     override fun getGroupCount(): Int {

@@ -3,7 +3,6 @@ package com.pdg.gesundheitscloudtest
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -32,10 +31,7 @@ class MainActivity : AppCompatActivity() {
         fetchItemsFromURL("adele")
 
         mainListView = findViewById(R.id.main_listview)
-        mainListView.expandableListAdapter = CustomExpandableListAdapter(this, resultArray)
-
-        mainListView.adapter = CustomExpandableListAdapter(this, resultArray)
-
+        mainListView!!.setAdapter(CustomExpandableListAdapter(this, resultArray))
     }
 
     private fun fetchItemsFromURL(searchString: String) {
@@ -86,11 +82,11 @@ class MainActivity : AppCompatActivity() {
                             )
 
                             resultArray.add(searchResultItem)
-                            Log.i(
-                                TAG,
-                                "$i: "+ responseResults.getJSONObject(i).getString("trackName") + " " +
-                                        responseResults.getJSONObject(i).getString("artistName"                             )
-                            );
+//                            Log.i(
+//                                TAG,
+//                                "$i: "+ responseResults.getJSONObject(i).getString("trackName") + " " +
+//                                        responseResults.getJSONObject(i).getString("artistName"                             )
+//                            );
                         }
                     } catch (jsonError: JSONException) {
                         Log.e(TAG, "Error parsing JSON: " + jsonError.message)
@@ -98,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     Log.d(TAG, "onResponse: array size:" + resultArray.size)
-                    (mainListView.adapter as CustomExpandableListAdapter).notifyDataSetChanged()
+                    (mainListView.expandableListAdapter as CustomExpandableListAdapter).notifyDataSetChanged()
                 }, Response.ErrorListener { error ->
                     Log.e("TAG", "Error retrieving JSON from URL: " + error.message)
                     error.printStackTrace()

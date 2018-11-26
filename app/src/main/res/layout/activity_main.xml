@@ -16,10 +16,11 @@
                 android:outlineAmbientShadowColor="@color/colorPrimaryDark"/>
 
     <ExpandableListView android:layout_width="match_parent" android:layout_height="465dp"
-              app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:id="@+id/main_listview"
-              app:layout_constraintTop_toBottomOf="@+id/main_searchView"
-              app:layout_constraintHorizontal_bias="0.0"/>
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/main_listview"
+                        app:layout_constraintTop_toBottomOf="@+id/main_searchView"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        android:groupIndicator="@null"/>
 
 </android.support.constraint.ConstraintLayout>
