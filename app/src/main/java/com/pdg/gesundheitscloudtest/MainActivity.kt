@@ -2,7 +2,10 @@ package com.pdg.gesundheitscloudtest
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import android.widget.ExpandableListView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -11,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.pdg.gesundheitscloudtest.model.SearchResultItem
 import com.pdg.gesundheitscloudtest.viewcontroller.CustomExpandableListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONException
 import java.util.ArrayList
 
@@ -28,10 +32,33 @@ class MainActivity : AppCompatActivity() {
 
         requestQueue = Volley.newRequestQueue(this)
 
-        fetchItemsFromURL("adele")
-
         mainListView = findViewById(R.id.main_listview)
-        mainListView!!.setAdapter(CustomExpandableListAdapter(this, resultArray))
+
+        var queryText: String?
+
+        main_searchTextView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(text: Editable?) {
+                queryText = text.toString()
+
+                if(queryText.isNullOrBlank()){
+                    if(resultArray!=null){
+                        resultArray.clear()
+                    }
+                }else {
+                    fetchItemsFromURL(queryText!!)
+
+                    if (resultArray != null) {
+                        mainListView.setAdapter(CustomExpandableListAdapter(this@MainActivity, resultArray))
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
     }
 
     private fun fetchItemsFromURL(searchString: String) {
@@ -104,3 +131,4 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "Request sent.")
     }
 }
+

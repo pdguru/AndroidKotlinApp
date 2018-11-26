@@ -3,11 +3,12 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
-                                             android:layout_height="wrap_content">
+                                             android:layout_height="wrap_content"
+                                             android:forceHasOverlappingRendering="true">
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_album"
-              android:text="Album"
+              android:text="Album: Nice name"
               android:padding="4dp"
               app:layout_constraintStart_toStartOf="parent"
               android:layout_marginStart="5dp" android:layout_marginTop="5dp"
@@ -15,15 +16,16 @@
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_releaseDate"
-              android:text="Released"
+              android:text="Released on: 2010-11-19"
               android:padding="4dp"
               app:layout_constraintStart_toEndOf="@+id/childrow_album"
               android:layout_marginStart="8dp" android:layout_marginTop="5dp"
-              app:layout_constraintTop_toTopOf="parent"/>
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintHorizontal_bias="0.0"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_songLength"
-              android:text="Length"
+              android:text="Length: 4:38m"
               android:padding="4dp"
               app:layout_constraintStart_toEndOf="@+id/childrow_genre"
               android:layout_marginStart="8dp" android:layout_marginTop="5dp"
@@ -32,7 +34,7 @@
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_genre"
-              android:text="Genre"
+              android:text="Genre: Some long thing"
               android:padding="4dp"
               app:layout_constraintStart_toStartOf="parent"
               android:layout_marginStart="5dp" android:layout_marginTop="5dp"
@@ -41,12 +43,14 @@
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_price"
-              android:text="Price"
+              android:text="Price: USD 1.23"
               android:padding="4dp"
               app:layout_constraintEnd_toEndOf="parent"
               android:layout_marginEnd="8dp" android:layout_marginTop="5dp"
               app:layout_constraintTop_toBottomOf="@+id/childrow_releaseDate"
-              android:layout_marginBottom="8dp"/>
+              app:layout_constraintStart_toEndOf="@+id/childrow_songLength" android:layout_marginStart="8dp"
+              app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
+              app:layout_constraintVertical_bias="0.0"/>
 
     <View android:layout_width="match_parent" android:layout_height="1dp"
           android:background="@color/colorPrimaryDark"

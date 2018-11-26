@@ -7,20 +7,29 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <SearchView android:layout_width="match_parent" android:layout_height="45dp" android:id="@+id/main_searchView"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/main_listview" android:layout_marginTop="0dp"
-                android:background="@color/colorPrimaryDark"
-                android:queryHint="Search for a song, an artist or an album"
-                android:outlineAmbientShadowColor="@color/colorPrimaryDark"/>
+    <ImageView android:layout_width="45dp" android:layout_height="45dp"
+               android:src="@drawable/search"
+               android:id="@+id/searchIcon"
+               android:background="@color/colorPrimaryDark"/>
 
-    <ExpandableListView android:layout_width="match_parent" android:layout_height="465dp"
+    <EditText android:layout_width="match_parent" android:layout_height="45dp" android:id="@+id/main_searchTextView"
+              app:layout_constraintStart_toEndOf="@id/searchIcon"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:background="@color/colorPrimaryDark"
+              android:hint="Song, artist or album"
+              android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+              android:textColor="@android:color/white"
+              android:textColorHint="@android:color/darker_gray"
+              android:gravity="center_vertical"
+              android:padding="8dp" app:layout_constraintHorizontal_bias="0.0"
+              android:layout_marginStart="45dp"/>
+
+    <ExpandableListView android:layout_width="match_parent" android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:id="@+id/main_listview"
-                        app:layout_constraintTop_toBottomOf="@+id/main_searchView"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        android:groupIndicator="@null"/>
+                        app:layout_constraintTop_toBottomOf="@+id/main_searchTextView"
+                        android:groupIndicator="@null"
+                        android:layout_marginTop="45dp"/>
 
 </android.support.constraint.ConstraintLayout>
