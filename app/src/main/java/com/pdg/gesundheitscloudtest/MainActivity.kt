@@ -1,12 +1,13 @@
 package com.pdg.gesundheitscloudtest
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.ExpandableListView
+import android.view.Menu
+import android.view.MenuItem
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -16,7 +17,11 @@ import com.pdg.gesundheitscloudtest.model.SearchResultItem
 import com.pdg.gesundheitscloudtest.viewcontroller.CustomExpandableListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONException
-import java.util.ArrayList
+import java.util.*
+import android.support.v4.view.MenuItemCompat
+import android.view.View
+import android.widget.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         mainListView = findViewById(R.id.main_listview)
 
         var queryText: String?
+
+        resultArray = ArrayList()
 
         main_searchTextView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {
@@ -74,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     private fun fetchItemsFromURL(searchString: String) {
         Log.i(TAG, "Fetching from URL")
 
-        resultArray = ArrayList()
+        resultArray.clear()
 
         val jsonObjectRequest =
             JsonObjectRequest(Request.Method.GET, "https://itunes.apple.com/search?term=$searchString",
@@ -133,6 +140,55 @@ class MainActivity : AppCompatActivity() {
 
         requestQueue.add(jsonObjectRequest)
         Log.i(TAG, "Request sent.")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.sort_menu, menu)
+
+        val spinArray = arrayOf("Sort on","Length", "Genre", "Price")
+        val item = menu.findItem(R.id.action_sort)
+        val spinner = item.actionView as Spinner
+
+        var adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, spinArray)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner.adapter = adapter
+
+        spinner?.onItemSelectedListener = (object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                when(position){
+                    0 -> return
+                    1 -> {if(resultArray!=null){
+                        resultArray.sortBy({ it.trackTimeMillis })
+                        (mainListView.expandableListAdapter as CustomExpandableListAdapter).notifyDataSetChanged()
+                    }}
+                    2 -> {if(resultArray!=null){
+                        resultArray.sortBy({ it.primaryGenreName })
+                        (mainListView.expandableListAdapter as CustomExpandableListAdapter).notifyDataSetChanged()
+                    }}
+                    3 -> {if(resultArray!=null){
+                        resultArray.sortBy({ it.trackPrice })
+                        (mainListView.expandableListAdapter as CustomExpandableListAdapter).notifyDataSetChanged()
+                    }}
+                }
+
+            } //onItemSelected
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        })
+        return true
+        }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_sort -> {
+                Toast.makeText(this, "Spinner", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return true
     }
 }
 

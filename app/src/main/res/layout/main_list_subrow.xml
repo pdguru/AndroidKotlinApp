@@ -19,9 +19,11 @@
               android:text="Released on: 2010-11-19"
               android:padding="4dp"
               app:layout_constraintStart_toEndOf="@+id/childrow_album"
-              android:layout_marginStart="8dp" android:layout_marginTop="5dp"
+              android:layout_marginTop="5dp"
               app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintHorizontal_bias="0.0"/>
+              app:layout_constraintEnd_toEndOf="parent"
+              android:layout_marginEnd="5dp"
+              app:layout_constraintBaseline_toBaselineOf="@id/childrow_album"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_songLength"
