@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.play_song.*
 import java.io.IOException
 import java.util.*
 import android.view.MenuItem
+import java.lang.IllegalStateException
 
 
 class SongPlayer : AppCompatActivity(), View.OnClickListener {
@@ -49,12 +50,16 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
             Glide.with(this).load(currentSong.artworkUrl100).placeholder(R.drawable.loading).into(song_imageview)
 
             song_title.text = currentSong.trackName
+            song_title.isSelected = true
 
             song_artist.text = currentSong.artistName
+            song_artist.isSelected = true
 
             song_album.text = currentSong.collectionName
+            song_album.isSelected = true
 
             song_genre.text = currentSong.primaryGenreName
+            song_genre.isSelected = true
 
             val url = currentSong.previewUrl
             playPreview(url)
@@ -80,6 +85,7 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
 //                setOnPreparedListener(this@SongPlayer)
                 prepare() //Since the data file is known to be small, prepareAsync() can be omitted
                 mediaPlayer?.start()
+                song_playpause.setImageResource(android.R.drawable.ic_media_play)
 //                progressBarUpdater()
             }
         } catch (iae: IllegalArgumentException) {
@@ -89,6 +95,9 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
         } catch (ioe: IOException) {
             Log.e(TAG, ioe.message)
             ioe.printStackTrace()
+        } catch (ise: IllegalStateException){
+            Log.e(TAG, ise.message)
+            ise.printStackTrace()
         }
     }
 

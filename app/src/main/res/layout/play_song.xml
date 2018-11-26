@@ -20,7 +20,9 @@
               android:layout_marginTop="25dp"
               android:text="Song name" app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-              android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
+              android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+              android:marqueeRepeatLimit="marquee_forever"
+    android:gravity="center"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/song_artist"
@@ -28,22 +30,28 @@
               android:layout_marginTop="15dp"
               android:text="Artist name"
               android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
-              app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="15dp"/>
+              app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="10dp"
+              app:layout_constraintEnd_toStartOf="@id/song_album" android:layout_marginEnd="5dp"
+              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/song_album" app:layout_constraintTop_toBottomOf="@id/song_title"
-              app:layout_constraintStart_toEndOf="@id/song_artist"
-              android:layout_marginTop="15dp" android:layout_marginStart="10dp"
+              android:layout_marginTop="15dp"
               android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
-              android:text="Album name" app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"/>
+              android:text="Album name"
+              android:ellipsize="marquee" app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+              android:marqueeRepeatLimit="marquee_forever"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:id="@+id/song_genre" app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginEnd="15dp"
+              android:id="@+id/song_genre"
               android:text="Genre" android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
               app:layout_constraintTop_toBottomOf="@id/song_title"
-              android:layout_marginTop="15dp"/>
+              android:layout_marginTop="15dp"
+              app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="10dp"
+              app:layout_constraintStart_toEndOf="@id/song_album" android:layout_marginStart="5dp"
+              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"
+    />
 
     <ProgressBar android:layout_width="match_parent" android:layout_height="wrap_content"
                  android:layout_marginStart="30dp" android:layout_marginEnd="30dp"
@@ -70,5 +78,8 @@
                android:src="@android:drawable/ic_media_next" android:id="@+id/song_next"
                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/song_progress"
                android:layout_marginTop="20dp" android:layout_marginEnd="20dp"/>
+    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:id="@+id/guideline" app:layout_constraintGuide_begin="20dp"
+                                          android:orientation="horizontal"/>
 
 </android.support.constraint.ConstraintLayout>

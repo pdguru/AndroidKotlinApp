@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.sort_menu, menu)
 
-        val spinArray = arrayOf("Sort on","Length", "Genre", "Price")
+        val spinArray = arrayOf("Sort on","Length", "Genre", "Price", "Album")
         val item = menu.findItem(R.id.action_sort)
         val spinner = item.actionView as Spinner
 
@@ -169,6 +169,10 @@ class MainActivity : AppCompatActivity() {
                     }}
                     3 -> {if(resultArray!=null){
                         resultArray.sortBy({ it.trackPrice })
+                        (mainListView.expandableListAdapter as CustomExpandableListAdapter).notifyDataSetChanged()
+                    }}
+                    4 -> {if(resultArray!=null){
+                        resultArray.sortBy({ it.collectionName })
                         (mainListView.expandableListAdapter as CustomExpandableListAdapter).notifyDataSetChanged()
                     }}
                 }
