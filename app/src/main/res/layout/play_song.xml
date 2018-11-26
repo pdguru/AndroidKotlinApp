@@ -22,7 +22,7 @@
               app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
               android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
               android:marqueeRepeatLimit="marquee_forever"
-    android:gravity="center"/>
+              android:gravity="center" android:maxLines="1"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/song_artist"
@@ -32,16 +32,17 @@
               android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
               app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="10dp"
               app:layout_constraintEnd_toStartOf="@id/song_album" android:layout_marginEnd="5dp"
-              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"/>
+              android:ellipsize="middle"
+              android:singleLine="true"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/song_album" app:layout_constraintTop_toBottomOf="@id/song_title"
               android:layout_marginTop="15dp"
               android:textAppearance="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
               android:text="Album name"
-              android:ellipsize="marquee" app:layout_constraintStart_toStartOf="parent"
+              android:ellipsize="middle" app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-              android:marqueeRepeatLimit="marquee_forever"/>
+              android:singleLine="true"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/song_genre"
@@ -50,8 +51,8 @@
               android:layout_marginTop="15dp"
               app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="10dp"
               app:layout_constraintStart_toEndOf="@id/song_album" android:layout_marginStart="5dp"
-              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"
-    />
+              android:ellipsize="middle"
+              android:singleLine="true"/>
 
     <ProgressBar android:layout_width="match_parent" android:layout_height="wrap_content"
                  android:layout_marginStart="30dp" android:layout_marginEnd="30dp"

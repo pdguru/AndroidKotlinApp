@@ -14,8 +14,9 @@
               android:layout_marginEnd="10dp"
               android:layout_marginTop="8dp"
               app:layout_constraintTop_toTopOf="parent"
-              android:ellipsize="marquee" app:layout_constraintStart_toStartOf="parent"
-              android:layout_marginStart="5dp" android:marqueeRepeatLimit="marquee_forever"/>
+              android:ellipsize="middle" app:layout_constraintStart_toStartOf="parent"
+              android:layout_marginStart="5dp"
+              android:singleLine="true" />
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_releaseDate"
@@ -27,7 +28,8 @@
               app:layout_constraintEnd_toEndOf="parent"
               android:layout_marginEnd="5dp"
               app:layout_constraintBaseline_toBaselineOf="@id/childrow_album"
-              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"/>
+              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"
+              android:singleLine="true"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_songLength"
@@ -38,7 +40,8 @@
               app:layout_constraintTop_toBottomOf="@+id/childrow_releaseDate"
               android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toStartOf="@id/childrow_price" android:layout_marginEnd="5dp"
-              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"/>
+              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"
+              android:singleLine="true"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_genre"
@@ -49,7 +52,8 @@
               app:layout_constraintTop_toBottomOf="@+id/childrow_album"
               android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toStartOf="@id/childrow_songLength" android:layout_marginEnd="5dp"
-              android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"/>
+              android:ellipsize="middle"
+              android:singleLine="true"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/childrow_price"
@@ -60,7 +64,8 @@
               app:layout_constraintTop_toBottomOf="@+id/childrow_releaseDate"
               app:layout_constraintStart_toEndOf="@+id/childrow_songLength" android:layout_marginStart="8dp"
               app:layout_constraintBottom_toBottomOf="parent"
-              android:layout_marginBottom="8dp" android:marqueeRepeatLimit="marquee_forever"/>
+              android:layout_marginBottom="8dp"
+              android:singleLine="true"/>
 
     <View android:layout_width="match_parent" android:layout_height="1dp"
           android:background="@color/colorPrimaryDark"

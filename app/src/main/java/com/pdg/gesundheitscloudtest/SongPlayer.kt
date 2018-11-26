@@ -8,6 +8,7 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -15,11 +16,9 @@ import com.pdg.gesundheitscloudtest.model.SearchResultItem
 import kotlinx.android.synthetic.main.play_song.*
 import java.io.IOException
 import java.util.*
-import android.view.MenuItem
-import java.lang.IllegalStateException
 
 
-class SongPlayer : AppCompatActivity(), View.OnClickListener {
+class SongPlayer : AppCompatActivity(), View.OnClickListener, MediaPlayer.OnCompletionListener{
 
     val TAG = "GHC"
 
@@ -47,6 +46,7 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
 
     private fun setNowPlaying(currentSong: SearchResultItem?) {
         if (currentSong != null) {
+
             Glide.with(this).load(currentSong.artworkUrl100).placeholder(R.drawable.loading).into(song_imageview)
 
             song_title.text = currentSong.trackName
@@ -72,11 +72,9 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
 
     private fun playPreview(url: String?) {
         if (mediaPlayer != null) {
-            if (mediaPlayer!!.isPlaying) {
-                mediaPlayer!!.stop()
-                mediaPlayer!!.release()
-                song_playpause.setImageResource(android.R.drawable.ic_media_play)
-            }
+            if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
+            song_playpause.setImageResource(android.R.drawable.ic_media_play)
+
         }
         try {
             mediaPlayer = MediaPlayer().apply {
@@ -84,10 +82,12 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
                 setDataSource(url)
 //                setOnPreparedListener(this@SongPlayer)
                 prepare() //Since the data file is known to be small, prepareAsync() can be omitted
-                mediaPlayer?.start()
-                song_playpause.setImageResource(android.R.drawable.ic_media_play)
+                start()
+                song_playpause.setImageResource(android.R.drawable.ic_media_pause)
 //                progressBarUpdater()
             }
+
+            mediaPlayer?.setOnCompletionListener(this@SongPlayer)
         } catch (iae: IllegalArgumentException) {
             Log.e(TAG, iae.message)
             iae.printStackTrace()
@@ -95,8 +95,8 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
         } catch (ioe: IOException) {
             Log.e(TAG, ioe.message)
             ioe.printStackTrace()
-        } catch (ise: IllegalStateException){
-            Log.e(TAG, ise.message)
+        } catch (ise: IllegalStateException) {
+            Log.e(TAG, "IllegalStateException")
             ise.printStackTrace()
         }
     }
@@ -116,20 +116,22 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
 //        }
 //    }
 
-//    private fun setOnPreparedListener(songPlayer: SongPlayer) {
-//        fun onPrepared(mediaPlayer: MediaPlayer) {
-//            mediaPlayer.start()
-//            song_playpause.setImageResource(android.R.drawable.ic_media_pause)
-//            Toast.makeText(this@SongPlayer, "Playing song preview", Toast.LENGTH_LONG).show()
-//        }
+
+//    override fun onPrepared(mediaPlayer: MediaPlayer) {
+//        mediaPlayer.start()
+//        song_playpause.setImageResource(android.R.drawable.ic_media_pause)
+//        Toast.makeText(this@SongPlayer, "Playing song preview", Toast.LENGTH_LONG).show()
 //    }
+
+    override fun onCompletion(mp: MediaPlayer?) {
+        song_playpause.setImageResource(android.R.drawable.ic_media_play)
+    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.song_playpause ->
                 if (mediaPlayer != null && mediaPlayer!!.isPlaying) {
-                    mediaPlayer!!.stop()
-                    mediaPlayer!!.release()
+                    mediaPlayer!!.pause()
                     song_playpause.setImageResource(android.R.drawable.ic_media_play)
                 } else if (mediaPlayer != null && !mediaPlayer!!.isPlaying) {
                     mediaPlayer!!.start()
@@ -169,7 +171,7 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
             R.id.action_share -> {
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "Hey, checkout this song I found on iTunes.\n"+
+                    putExtra(Intent.EXTRA_TEXT, "Hey, checkout this song I found on iTunes.\n" +
                             receivedArrayPos?.let { receivedArray?.get(it)?.trackViewUrl })
                     type = "text/plain"
                 }
@@ -181,16 +183,20 @@ class SongPlayer : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
+        if (mediaPlayer != null && mediaPlayer!!.isPlaying) Toast.makeText(
+            this,
+            "Preview song will stop shortly.",
+            Toast.LENGTH_LONG
+        ).show()
         super.onBackPressed()
-        if(mediaPlayer!=null && mediaPlayer!!.isPlaying) Toast.makeText(this, "Preview song will stop shortly.", Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
-        if(mediaPlayer!=null) {
+        if (mediaPlayer != null) {
             mediaPlayer?.stop()
             mediaPlayer?.release()
         }
+        super.onDestroy()
     }
 }
 
